@@ -1,13 +1,14 @@
 import Square from "./Square"
 
-export default function Board({ xIsNext, squares, onPlay }) {
+export default function Board({ xIsNext, squares, onPlay, onReset }) {
     const winner = calculateWinner(squares);
 
     let status;
+    let isDraw = !squares.includes(null);
     if (winner) {
         status = "Winner: " + squares[winner[0]];
     } else {
-        if (!squares.includes(null)) {
+        if (isDraw) {
             status = "The match is draw";
         } else {
             status = "Next player: " + (xIsNext ? 'X' : 'O');
@@ -37,10 +38,19 @@ export default function Board({ xIsNext, squares, onPlay }) {
         rows.push(<div key={i} className="board-row">{cells}</div>)
     }
 
+    function resetBoard() {
+        onReset();
+    }
+
     return (
         <>
             <div className="status">{status}</div>
             {rows}
+            {(winner || isDraw) && (
+                <div className="reset-container">
+                    <button onClick={resetBoard}>Reset</button>
+                </div>
+            )}
         </>
     )
 }

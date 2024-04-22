@@ -19,6 +19,11 @@ export default function Game() {
 
     }
 
+    function handleReset() {
+        setHistory([Array(9).fill(null)]);
+        setCurrentMove(0);
+    }
+
     const moves = history.map((squares, move) => {
         let description;
         if(move > 0) {
@@ -41,14 +46,14 @@ export default function Game() {
     return (
         <div className="game">
             <div className="game-board">
-                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+                <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} onReset={handleReset} />
             </div>
-        <div className="game-info">
-            <label>Display:
-                <button onClick={() => setDisplayMoveAscendingOrder(!displayMoveAscendingOrder)}>{displayMoveAscendingOrder ? 'Ascending' : 'Descending'}</button>
-            </label>
-            <ol>{displayMoveAscendingOrder ? moves : moves.reverse()}</ol>
+            <div className="game-info">
+                <label>Display:
+                    <button onClick={() => setDisplayMoveAscendingOrder(!displayMoveAscendingOrder)}>{displayMoveAscendingOrder ? 'Ascending' : 'Descending'}</button>
+                </label>
+                <ol>{displayMoveAscendingOrder ? moves : moves.reverse()}</ol>
+            </div>
         </div>
-    </div>
     );
 }
