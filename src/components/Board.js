@@ -45,7 +45,9 @@ export default function Board({ xIsNext, squares, onPlay, onReset }) {
     return (
         <>
             <div className="status">{status}</div>
-            {rows}
+            <div>
+                {rows}
+            </div>
             {(winner || isDraw) && (
                 <div className="reset-container">
                     <button onClick={resetBoard}>Reset</button>
