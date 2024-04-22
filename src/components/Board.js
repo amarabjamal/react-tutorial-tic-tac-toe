@@ -7,11 +7,17 @@ export default function Board({ xIsNext, squares, onPlay }) {
     if (winner) {
         status = "Winner: " + squares[winner[0]];
     } else {
-        status = "Next player: " + (xIsNext ? 'X' : 'O');
+        if (!squares.includes(null)) {
+            status = "The match is draw";
+        } else {
+            status = "Next player: " + (xIsNext ? 'X' : 'O');
+        }
     }
 
     function handleClick(i) {
-        if (squares[i] || winner) return;
+        if (squares[i] || winner) {
+            return;
+        }
         const nextSquares = squares.slice();
         if (xIsNext) {
             nextSquares[i] = 'X';
