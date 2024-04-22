@@ -2,9 +2,10 @@ import Square from "./Square"
 
 export default function Board({ xIsNext, squares, onPlay }) {
     const winner = calculateWinner(squares);
+
     let status;
     if (winner) {
-        status = "Winner: " + winner;
+        status = "Winner: " + squares[winner[0]];
     } else {
         status = "Next player: " + (xIsNext ? 'X' : 'O');
     }
@@ -25,7 +26,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
         const cells = [];
         for (let j = 0; j < 3; j++) {
             const index = i * 3 + j;
-            cells.push(<Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} />);
+            cells.push(<Square key={index} className={winner?.includes(index) && "highlight-cell"} value={squares[index]} onSquareClick={() => handleClick(index)} />);
         }
         rows.push(<div key={i} className="board-row">{cells}</div>)
     }
@@ -52,7 +53,7 @@ function calculateWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        return lines[i];
       }
     }
     return null;
