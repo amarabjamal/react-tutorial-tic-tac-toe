@@ -6,6 +6,7 @@ export default function Game() {
     const [currentMove, setCurrentMove] = useState(0);
     const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
+    const [displayMoveOrder, setDisplayMoveOrder] = useState('asce');
 
     function handlePlay(nextSquares) {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -43,7 +44,13 @@ export default function Game() {
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
             </div>
         <div className="game-info">
-            <ol>{moves}</ol>
+            <label>Display:
+                <select value={displayMoveOrder} onChange={(e) => setDisplayMoveOrder(e.target.value)}>
+                    <option value="asce" selected>Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </label>
+            <ol>{displayMoveOrder === 'asce' ? moves : moves.reverse()}</ol>
         </div>
     </div>
     );

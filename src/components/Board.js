@@ -27,7 +27,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
             const index = i * 3 + j;
             cells.push(<Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} />);
         }
-        rows.push(<div className="board-row">{cells}</div>)
+        rows.push(<div key={i} className="board-row">{cells}</div>)
     }
 
     return (
