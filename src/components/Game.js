@@ -6,7 +6,7 @@ export default function Game() {
     const [currentMove, setCurrentMove] = useState(0);
     const xIsNext = currentMove % 2 === 0;
     const currentSquares = history[currentMove];
-    const [displayMoveOrder, setDisplayMoveOrder] = useState('asce');
+    const [displayMoveAscendingOrder, setDisplayMoveAscendingOrder] = useState(true);
 
     function handlePlay(nextSquares) {
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -28,7 +28,7 @@ export default function Game() {
         }
 
         if (move === currentMove) {
-            return <span key={move}>You are at move #{move}</span>
+            return <li key={move}>You are at move #{move}</li>
         }
 
         return (
@@ -45,12 +45,9 @@ export default function Game() {
             </div>
         <div className="game-info">
             <label>Display:
-                <select value={displayMoveOrder} onChange={(e) => setDisplayMoveOrder(e.target.value)}>
-                    <option value="asce" selected>Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
+                <button onClick={() => setDisplayMoveAscendingOrder(!displayMoveAscendingOrder)}>{displayMoveAscendingOrder ? 'Ascending' : 'Descending'}</button>
             </label>
-            <ol>{displayMoveOrder === 'asce' ? moves : moves.reverse()}</ol>
+            <ol>{displayMoveAscendingOrder ? moves : moves.reverse()}</ol>
         </div>
     </div>
     );
